@@ -2,6 +2,9 @@ buildscript{
     repositories{
         mavenLocal()
         mavenCentral()
+        maven {
+            url uri('http://files.viva64.com/java/pvsstudio-maven-repository/')
+        }
         google()
         maven{ url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
@@ -11,8 +14,18 @@ buildscript{
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.7'
         classpath "com.badlogicgames.gdx:gdx-tools:1.9.10"
         classpath "com.badlogicgames.packr:packr:2.1-SNAPSHOT"
+        classpath group: 'com.pvsstudio',
+                name: 'pvsstudio-gradle-plugin',
+                version: '7.04.34029'
     }
 }
+
+apply plugin: com.pvsstudio.PvsStudioGradlePlugin
+pvsstudio {
+    outputType = 'text'
+    outputFile = 'path/to/output.txt'
+}
+
 
 allprojects{
     version = 'release'
