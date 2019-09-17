@@ -1,3 +1,8 @@
+### Important Note
+This is not the official Mindustry repo. This repo is being used for a school research project aimed at improving the
+security of open source projects using secure coding practices and tools. For the official mindustry repo please visit
+https://github.com/Anuken/Mindustry
+
 ![Logo](core/assets/sprites/logo.png)
 
 [![Build Status](https://travis-ci.org/Anuken/Mindustry.svg?branch=master)](https://travis-ci.org/Anuken/Mindustry) 
