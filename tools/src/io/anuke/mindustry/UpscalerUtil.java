@@ -28,7 +28,7 @@ public class UpscalerUtil {
 
         Log.info("Upscaling icons...");
         Time.mark();
-        FileHandle[] list = file.list();
+        FileHandle[] list = file.list(); 
 
         for(IconSize size : IconSize.values()){
             String suffix = size == IconSize.def ? "" : "-" + size.name();
