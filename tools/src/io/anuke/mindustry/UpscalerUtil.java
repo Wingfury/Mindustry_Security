@@ -8,7 +8,7 @@ import io.anuke.arc.graphics.g2d.*;
 import io.anuke.arc.util.*;
 import io.anuke.mindustry.ui.*;
 
-public class Upscaler{
+public class UpscalerUtil {
     public static void main(String[] args){
         new SdlApplication(new ApplicationListener(){
             @Override
