@@ -113,6 +113,9 @@ public class DesktopLauncher extends ClientLauncher{
                     Log.err("Steam client not running.");
                 }else{
                     Vars.steam = true;
+                    //This poses an issue because calling an override method in a constructor can cause that
+                    //override to not be constructed yet meaning that it can call the wrong method
+                    //however, i do not know how to change that
                     initSteam(args);
 
                 }

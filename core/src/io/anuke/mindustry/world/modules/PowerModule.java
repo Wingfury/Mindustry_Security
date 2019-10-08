@@ -28,7 +28,8 @@ public class PowerModule extends BlockModule{
 
     @Override
     public void read(DataInput stream) throws IOException{
-        short amount = stream.readShort();
+        //This was changed from short to int. it is strictly less efficient to use short
+        int amount = stream.readShort();
         for(int i = 0; i < amount; i++){
             links.add(stream.readInt());
         }

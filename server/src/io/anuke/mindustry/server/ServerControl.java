@@ -65,6 +65,15 @@ public class ServerControl implements ApplicationListener{
             "socket", false
         );
 
+        /*
+        This is the beginning of a lot of best practices errors. Best practices indicate there shouldn't be any
+        println and that there should not be any log without an if determining if the statement should be logged.
+        The static analysis of the code determined that the info method went to the logger. However, because of this
+        override it does not. This architecture allows the server to output information to the console
+        with the correct tags. There is no other way to output info to the console in a real time way except with
+        println. This means that this design is a good decision and even though in the strict sense violates best
+        practices the design makes sense in this application.
+         */
         Log.setLogger(new LogHandler(){
             DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("MM-dd-yyyy | HH:mm:ss");
 
