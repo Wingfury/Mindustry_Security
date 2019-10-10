@@ -11,8 +11,8 @@ import io.anuke.mindustry.world.Tile;
  * They are made to share all properties from the linked tile/block.
  */
 public class BlockPart extends Block{
-    public final static int maxSize = 9;
-    private final static BlockPart[][] parts = new BlockPart[maxSize][maxSize];
+    public final static int MAX_SIZE = 9;
+    private final static BlockPart[][] PARTS = new BlockPart[MAX_SIZE][MAX_SIZE];
 
     private final int dx, dy;
 
@@ -22,12 +22,12 @@ public class BlockPart extends Block{
         this.dy = dy;
         solid = false;
         hasPower = hasItems = hasLiquids = true;
-        parts[dx + maxSize/2][dy + maxSize/2] = this;
+        PARTS[dx + MAX_SIZE /2][dy + MAX_SIZE /2] = this;
     }
 
     public static BlockPart get(int dx, int dy){
-        if(dx == -maxSize/2 && dy == -maxSize/2) throw new IllegalArgumentException("Why are you getting a [0,0] blockpart? Stop it.");
-        return parts[dx + maxSize/2][dy + maxSize/2];
+        if(dx == -MAX_SIZE /2 && dy == -MAX_SIZE /2) throw new IllegalArgumentException("Why are you getting a [0,0] blockpart? Stop it.");
+        return PARTS[dx + MAX_SIZE /2][dy + MAX_SIZE /2];
     }
 
     @Override

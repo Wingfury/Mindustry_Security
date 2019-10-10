@@ -123,15 +123,15 @@ public class DesktopLauncher extends ClientLauncher{
         }
     }
 
-    void initSteam(String[] args){
-        SVars.net = new SNet(new ArcNetImpl());
-        SVars.stats = new SStats();
-        SVars.workshop = new SWorkshop();
-        SVars.user = new SUser();
+    final void initSteam(String[] args){
+        SVarsUtil.net = new SNet(new ArcNetImpl());
+        SVarsUtil.stats = new SStats();
+        SVarsUtil.workshop = new SWorkshop();
+        SVarsUtil.user = new SUser();
 
         Events.on(ClientLoadEvent.class, event -> {
-            player.name = SVars.net.friends.getPersonaName();
-            Core.settings.defaults("name", SVars.net.friends.getPersonaName());
+            player.name = SVarsUtil.net.friends.getPersonaName();
+            Core.settings.defaults("name", SVarsUtil.net.friends.getPersonaName());
             Core.settings.put("name", player.name);
             Core.settings.save();
             //update callbacks
@@ -185,27 +185,27 @@ public class DesktopLauncher extends ClientLauncher{
 
     @Override
     public NetProvider getNet(){
-        return steam ? SVars.net : new ArcNetImpl();
+        return steam ? SVarsUtil.net : new ArcNetImpl();
     }
 
     @Override
     public void openWorkshop(){
-        SVars.net.friends.activateGameOverlayToWebPage("https://steamcommunity.com/app/1127400/workshop/");
+        SVarsUtil.net.friends.activateGameOverlayToWebPage("https://steamcommunity.com/app/1127400/workshop/");
     }
 
     @Override
     public void publishMap(Map map){
-        SVars.workshop.publishMap(map);
+        SVarsUtil.workshop.publishMap(map);
     }
 
     @Override
     public void inviteFriends(){
-        SVars.net.showFriendInvites();
+        SVarsUtil.net.showFriendInvites();
     }
 
     @Override
     public void updateLobby(){
-        SVars.net.updateLobby();
+        SVarsUtil.net.updateLobby();
     }
 
     @Override
@@ -247,7 +247,7 @@ public class DesktopLauncher extends ClientLauncher{
         if(steam){
             try{
                 byte[] result = new byte[8];
-                new RandomXS128(SVars.user.user.getSteamID().getAccountID()).nextBytes(result);
+                new RandomXS128(SVarsUtil.user.user.getSteamID().getAccountID()).nextBytes(result);
                 return new String(Base64Coder.encode(result));
             }catch(Exception e){
                 e.printStackTrace();

@@ -6,7 +6,7 @@ import io.anuke.arc.graphics.g2d.TextureRegion;
 import io.anuke.arc.math.Mathf;
 import io.anuke.arc.util.Log;
 import io.anuke.arc.util.noise.RidgedPerlin;
-import io.anuke.mindustry.ImagePacker.GenRegion;
+import io.anuke.mindustry.ImagePackerUtil.GenRegion;
 import io.anuke.mindustry.type.*;
 import io.anuke.mindustry.world.Block;
 import io.anuke.mindustry.world.Block.Icon;
@@ -23,7 +23,7 @@ public class Generators{
 
     public static void generate(){
 
-        ImagePacker.generate("cracks", () -> {
+        ImagePackerUtil.generate("cracks", () -> {
             RidgedPerlin r = new RidgedPerlin(1, 3);
             for(int size = 1; size <= Block.maxCrackSize; size++){
                 int dim = size * 32;
@@ -68,7 +68,7 @@ public class Generators{
             }
         });
 
-        ImagePacker.generate("block-icons", () -> {
+        ImagePackerUtil.generate("block-icons", () -> {
             Image colors = new Image(content.blocks().size, 1);
             Color outlineColor = Color.valueOf("404049");
 
@@ -97,7 +97,7 @@ public class Generators{
                     if(block.outlineIcon){
                         int radius = 4;
                         GenRegion region = (GenRegion)regions[regions.length - 1];
-                        Image base = ImagePacker.get(region);
+                        Image base = ImagePackerUtil.get(region);
                         Image out = last = new Image(region.getWidth(), region.getHeight());
                         for(int x = 0; x < out.width; x++){
                             for(int y = 0; y < out.height; y++){
@@ -131,7 +131,7 @@ public class Generators{
                         out.save(block.name);
                     }
 
-                    Image image = ImagePacker.get(regions[0]);
+                    Image image = ImagePackerUtil.get(regions[0]);
 
                     int i = 0;
                     for(TextureRegion region : regions){
@@ -181,9 +181,9 @@ public class Generators{
             colors.save("../../../assets/sprites/block_colors");
         });
 
-        ImagePacker.generate("item-icons", () -> {
+        ImagePackerUtil.generate("item-icons", () -> {
             for(Item item : content.items()){
-                Image base = ImagePacker.get("item-" + item.name);
+                Image base = ImagePackerUtil.get("item-" + item.name);
                 for(Item.Icon icon : Item.Icon.values()){
                     if(icon.size == base.width) continue;
                     Image image = new Image(icon.size, icon.size);
@@ -193,12 +193,12 @@ public class Generators{
             }
         });
 
-        ImagePacker.generate("mech-icons", () -> {
+        ImagePackerUtil.generate("mech-icons", () -> {
             for(Mech mech : content.<Mech>getBy(ContentType.mech)){
                 mech.load();
                 mech.weapon.load();
 
-                Image image = ImagePacker.get(mech.region);
+                Image image = ImagePackerUtil.get(mech.region);
 
                 if(!mech.flying){
                     image.drawCenter(mech.baseRegion);
@@ -217,12 +217,12 @@ public class Generators{
             }
         });
 
-        ImagePacker.generate("unit-icons", () -> {
+        ImagePackerUtil.generate("unit-icons", () -> {
             content.<UnitType>getBy(ContentType.unit).each(type -> !type.isFlying, type -> {
                 type.load();
                 type.weapon.load();
 
-                Image image = ImagePacker.get(type.region);
+                Image image = ImagePackerUtil.get(type.region);
 
                 image.draw(type.baseRegion);
                 image.draw(type.legRegion);
@@ -240,14 +240,14 @@ public class Generators{
             });
         });
 
-        ImagePacker.generate("ore-icons", () -> {
+        ImagePackerUtil.generate("ore-icons", () -> {
             content.blocks().<OreBlock>each(b -> b instanceof OreBlock, ore -> {
                 Item item = ore.itemDrop;
 
                 for(int i = 0; i < 3; i++){
                     //get base image to draw on
                     Image image = new Image(32, 32);
-                    Image shadow = ImagePacker.get(item.name + (i + 1));
+                    Image shadow = ImagePackerUtil.get(item.name + (i + 1));
 
                     int offset = image.width / tilesize - 1;
 
@@ -263,7 +263,7 @@ public class Generators{
                         }
                     }
 
-                    image.draw(ImagePacker.get(item.name + (i + 1)));
+                    image.draw(ImagePackerUtil.get(item.name + (i + 1)));
                     image.save("../blocks/environment/ore-" + item.name + (i + 1));
                     image.save("../editor/editor-ore-" + item.name + (i + 1));
 
@@ -279,16 +279,16 @@ public class Generators{
             });
         });
 
-        ImagePacker.generate("edges", () -> {
+        ImagePackerUtil.generate("edges", () -> {
             content.blocks().<Floor>each(b -> b instanceof Floor && !(b instanceof OverlayFloor), floor -> {
 
-                if(ImagePacker.has(floor.name + "-edge") || floor.blendGroup != floor){
+                if(ImagePackerUtil.has(floor.name + "-edge") || floor.blendGroup != floor){
                     return;
                 }
 
                 try{
-                    Image image = ImagePacker.get(floor.generateIcons()[0]);
-                    Image edge = ImagePacker.get("edge-stencil");
+                    Image image = ImagePackerUtil.get(floor.generateIcons()[0]);
+                    Image edge = ImagePackerUtil.get("edge-stencil");
                     Image result = new Image(edge.width, edge.height);
 
                     for(int x = 0; x < edge.width; x++){

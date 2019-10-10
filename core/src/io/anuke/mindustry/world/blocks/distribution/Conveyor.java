@@ -19,7 +19,7 @@ import java.io.*;
 import static io.anuke.mindustry.Vars.*;
 
 public class Conveyor extends Block{
-    private static final float itemSpace = 0.4f;
+    private static final float ITEM_SPACE = 0.4f;
     private static final float minmove = 1f / (Short.MAX_VALUE - 2);
     private static ItemPos drawpos = new ItemPos();
     private static ItemPos pos1 = new ItemPos();
@@ -54,7 +54,7 @@ public class Conveyor extends Block{
     @Override
     public void setStats(){
         super.setStats();
-        stats.add(BlockStat.itemsMoved, speed * 60 * (1f / itemSpace), StatUnit.itemsSecond);
+        stats.add(BlockStat.itemsMoved, speed * 60 * (1f / ITEM_SPACE), StatUnit.itemsSecond);
     }
 
     @Override
@@ -196,7 +196,7 @@ public class Conveyor extends Block{
             if(Math.abs(tile.worldx() - unit.x) < 1f) centerx = 0f;
         }
 
-        if(entity.convey.size * itemSpace < 0.9f){
+        if(entity.convey.size * ITEM_SPACE < 0.9f){
             unit.applyImpulse((tx * speed + centerx) * entity.delta(), (ty * speed + centery) * entity.delta());
         }
     }
@@ -208,7 +208,7 @@ public class Conveyor extends Block{
         Tile next = tile.getNearby(tile.rotation());
         if(next != null) next = next.link();
 
-        float nextMax = next != null && next.block() instanceof Conveyor ? 1f - Math.max(itemSpace - next.<ConveyorEntity>entity().minitem, 0) : 1f;
+        float nextMax = next != null && next.block() instanceof Conveyor ? 1f - Math.max(ITEM_SPACE - next.<ConveyorEntity>entity().minitem, 0) : 1f;
         int minremove = Integer.MAX_VALUE;
 
         for(int i = entity.convey.size - 1; i >= 0; i--){
@@ -221,7 +221,7 @@ public class Conveyor extends Block{
                 break;
             }
 
-            float nextpos = (i == entity.convey.size - 1 ? 100f : pos2.set(entity.convey.get(i + 1), ItemPos.updateShorts).y) - itemSpace;
+            float nextpos = (i == entity.convey.size - 1 ? 100f : pos2.set(entity.convey.get(i + 1), ItemPos.updateShorts).y) - ITEM_SPACE;
             float maxmove = Math.min(nextpos - pos.y, speed * entity.delta());
 
             if(maxmove > minmove){
@@ -256,7 +256,7 @@ public class Conveyor extends Block{
             }
         }
 
-        if(entity.minitem < itemSpace){
+        if(entity.minitem < ITEM_SPACE){
             entity.clogHeat = Mathf.lerpDelta(entity.clogHeat, 1f, 0.02f);
         }else{
             entity.clogHeat = Mathf.lerpDelta(entity.clogHeat, 0f, 1f);
@@ -305,7 +305,7 @@ public class Conveyor extends Block{
     @Override
     public int acceptStack(Item item, int amount, Tile tile, Unit source){
         ConveyorEntity entity = tile.entity();
-        return Math.min((int)(entity.minitem / itemSpace), amount);
+        return Math.min((int)(entity.minitem / ITEM_SPACE), amount);
     }
 
     @Override
@@ -313,7 +313,7 @@ public class Conveyor extends Block{
         ConveyorEntity entity = tile.entity();
 
         for(int i = amount - 1; i >= 0; i--){
-            long result = ItemPos.packItem(item, 0f, i * itemSpace);
+            long result = ItemPos.packItem(item, 0f, i * ITEM_SPACE);
             entity.convey.insert(0, result);
             entity.items.add(item, 1);
         }
@@ -325,7 +325,7 @@ public class Conveyor extends Block{
     public boolean acceptItem(Item item, Tile tile, Tile source){
         int direction = source == null ? 0 : Math.abs(source.relativeTo(tile.x, tile.y) - tile.rotation());
         float minitem = tile.<ConveyorEntity>entity().minitem;
-        return (((direction == 0) && minitem > itemSpace) ||
+        return (((direction == 0) && minitem > ITEM_SPACE) ||
         ((direction % 2 == 1) && minitem > 0.52f)) && (source == null || !(source.block().rotate && (source.rotation() + 2) % 4 == tile.rotation()));
     }
 

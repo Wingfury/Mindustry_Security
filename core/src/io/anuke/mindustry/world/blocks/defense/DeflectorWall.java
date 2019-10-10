@@ -12,7 +12,7 @@ import io.anuke.mindustry.world.*;
 import static io.anuke.mindustry.Vars.tilesize;
 
 public class DeflectorWall extends Wall{
-    public static final float hitTime = 10f;
+    public static final float HIT_TIME = 10f;
 
     protected float maxDamageDeflect = 10f;
     protected Rectangle rect = new Rectangle();
@@ -37,7 +37,7 @@ public class DeflectorWall extends Wall{
         Draw.blend();
         Draw.reset();
 
-        entity.hit = Mathf.clamp(entity.hit - Time.delta() / hitTime);
+        entity.hit = Mathf.clamp(entity.hit - Time.delta() / HIT_TIME);
     }
 
     @Override

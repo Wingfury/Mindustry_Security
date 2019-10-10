@@ -20,7 +20,7 @@ public enum SStat{
     ;
 
     public int get(){
-        return SVars.stats.stats.getStatI(name(), 0);
+        return SVarsUtil.stats.stats.getStatI(name(), 0);
     }
 
     public void max(int amount){
@@ -30,10 +30,10 @@ public enum SStat{
     }
 
     public void add(int amount){
-        SVars.stats.stats.setStatI(name(), get() + amount);
-        SVars.stats.onUpdate();
+        SVarsUtil.stats.stats.setStatI(name(), get() + amount);
+        SVarsUtil.stats.onUpdate();
 
-        for(SAchievement a : SAchievement.all){
+        for(SAchievement a : SAchievement.ALL_ACHIEVEMENTS){
             a.checkCompletion();
         }
     }

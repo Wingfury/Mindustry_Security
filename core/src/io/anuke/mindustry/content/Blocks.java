@@ -107,9 +107,9 @@ public class Blocks implements ContentList{
         };
 
         //create special blockpart variants
-        for(int dx = 0; dx < BlockPart.maxSize; dx++){
-            for(int dy = 0; dy < BlockPart.maxSize; dy++){
-                int fx = dx - BlockPart.maxSize/2, fy = dy - BlockPart.maxSize/2;
+        for(int dx = 0; dx < BlockPart.MAX_SIZE; dx++){
+            for(int dy = 0; dy < BlockPart.MAX_SIZE; dy++){
+                int fx = dx - BlockPart.MAX_SIZE /2, fy = dy - BlockPart.MAX_SIZE /2;
                 if(fx != 0 || fy != 0){
                     new BlockPart(fx, fy);
                 }
@@ -125,7 +125,7 @@ public class Blocks implements ContentList{
 
         //Registers build blocks
         //no reference is needed here since they can be looked up by name later
-        for(int i = 1; i <= BuildBlock.maxSize; i++){
+        for(int i = 1; i <= BuildBlock.MAX_SIZE; i++){
             new BuildBlock(i);
         }
 

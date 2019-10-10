@@ -409,7 +409,9 @@ public class MapGenerateDialog extends FloatingDialog{
 
     private class GenTile{
         public byte team, rotation;
-        public short block, floor, ore;
+        public int block;
+        public int floor;
+        public int ore;
 
         public void set(Block floor, Block wall, Block ore, Team team, int rotation){
             this.floor = floor.id;

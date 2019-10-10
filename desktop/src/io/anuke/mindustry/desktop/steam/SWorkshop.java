@@ -37,12 +37,12 @@ public class SWorkshop implements SteamUGCCallback{
         dialog.cont.add("$map.publish.confirm").width(600f).wrap();
         dialog.addCloseButton();
         dialog.buttons.addImageTextButton("$eula", Icon.linkSmall, () -> {
-            SVars.net.friends.activateGameOverlayToWebPage("https://steamcommunity.com/sharedfiles/workshoplegalagreement");
+            SVarsUtil.net.friends.activateGameOverlayToWebPage("https://steamcommunity.com/sharedfiles/workshoplegalagreement");
         }).size(210f, 64f);
 
         dialog.buttons.addImageTextButton("$ok", Icon.checkSmall, () -> {
             this.lastMap = map;
-            ugc.createItem(SVars.steamID, WorkshopFileType.Community);
+            ugc.createItem(SVarsUtil.STEAM_ID, WorkshopFileType.Community);
             ui.loadfrag.show("$map.publishing");
             Log.info("Publish map " + map.name());
             dialog.hide();
@@ -88,7 +88,7 @@ public class SWorkshop implements SteamUGCCallback{
         Log.info("Create item {0} result {1} {2}", SteamNativeHandle.getNativeHandle(publishedFileID), result, needsToAcceptWLA);
 
         if(result == SteamResult.OK){
-            SteamUGCUpdateHandle h = ugc.startItemUpdate(SVars.steamID, publishedFileID);
+            SteamUGCUpdateHandle h = ugc.startItemUpdate(SVarsUtil.STEAM_ID, publishedFileID);
 
             Gamemode mode = Gamemode.attack.valid(map) ? Gamemode.attack : Gamemode.survival;
             FileHandle mapFile = tmpDirectory.child("map_" + publishedFileID.toString()).child("map.msav");
@@ -130,9 +130,9 @@ public class SWorkshop implements SteamUGCCallback{
         Log.info("onsubmititemupdate {0} {1} {2}", publishedFileID, needsToAcceptWLA, result);
         if(result == SteamResult.OK){
             //redirect user to page for further updates
-            SVars.net.friends.activateGameOverlayToWebPage("steam://url/CommunityFilePage/" + SteamNativeHandle.getNativeHandle(publishedFileID));
+            SVarsUtil.net.friends.activateGameOverlayToWebPage("steam://url/CommunityFilePage/" + SteamNativeHandle.getNativeHandle(publishedFileID));
             if(needsToAcceptWLA){
-                SVars.net.friends.activateGameOverlayToWebPage("https://steamcommunity.com/sharedfiles/workshoplegalagreement");
+                SVarsUtil.net.friends.activateGameOverlayToWebPage("https://steamcommunity.com/sharedfiles/workshoplegalagreement");
             }
             Events.fire(new MapPublishEvent());
         }else{

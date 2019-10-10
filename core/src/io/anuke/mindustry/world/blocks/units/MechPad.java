@@ -113,7 +113,7 @@ public class MechPad extends Block{
         MechFactoryEntity entity = tile.entity();
 
         if(entity.player != null){
-            RespawnBlock.drawRespawn(tile, entity.heat, entity.progress, entity.time, entity.player, (!entity.sameMech && entity.player.mech == mech ? Mechs.starter : mech));
+            RespawnBlockUtil.drawRespawn(tile, entity.heat, entity.progress, entity.time, entity.player, (!entity.sameMech && entity.player.mech == mech ? Mechs.starter : mech));
         }
     }
 

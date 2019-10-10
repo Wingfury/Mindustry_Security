@@ -20,7 +20,7 @@ import io.anuke.mindustry.world.meta.*;
 import static io.anuke.mindustry.Vars.*;
 
 public class Drill extends Block{
-    protected final static float hardnessDrillMultiplier = 50f;
+    protected final static float HARDNESS_DRILL_MULTIPLIER = 50f;
 
     protected final ObjectIntMap<Item> oreCount = new ObjectIntMap<>();
     protected final Array<Item> itemArray = new Array<>();
@@ -140,7 +140,7 @@ public class Drill extends Block{
         countOre(tile);
 
         if(returnItem != null){
-            float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / (drillTime + hardnessDrillMultiplier * returnItem.hardness) * returnCount, 2), x, y, valid);
+            float width = drawPlaceText(Core.bundle.formatFloat("bar.drillspeed", 60f / (drillTime + HARDNESS_DRILL_MULTIPLIER * returnItem.hardness) * returnCount, 2), x, y, valid);
             float dx = x * tilesize + offset() - width/2f - 4f, dy = y * tilesize + offset() + size * tilesize / 2f + 5;
             Draw.mixcol(Color.darkGray, 1f);
             Draw.rect(returnItem.icon(Item.Icon.large), dx, dy - 1);
@@ -258,7 +258,7 @@ public class Drill extends Block{
                 speed *= entity.power.satisfaction; // Drill slower when not at full power
             }
 
-            entity.lastDrillSpeed = (speed * entity.dominantItems * entity.warmup) / (drillTime + hardnessDrillMultiplier * entity.dominantItem.hardness);
+            entity.lastDrillSpeed = (speed * entity.dominantItems * entity.warmup) / (drillTime + HARDNESS_DRILL_MULTIPLIER * entity.dominantItem.hardness);
             entity.warmup = Mathf.lerpDelta(entity.warmup, speed, warmupSpeed);
             entity.progress += entity.delta()
             * entity.dominantItems * speed * entity.warmup;
@@ -271,7 +271,7 @@ public class Drill extends Block{
             return;
         }
 
-        if(entity.dominantItems > 0 && entity.progress >= drillTime + hardnessDrillMultiplier * entity.dominantItem.hardness && tile.entity.items.total() < itemCapacity){
+        if(entity.dominantItems > 0 && entity.progress >= drillTime + HARDNESS_DRILL_MULTIPLIER * entity.dominantItem.hardness && tile.entity.items.total() < itemCapacity){
 
             offloadNear(tile, entity.dominantItem);
 

@@ -9,10 +9,10 @@ import io.anuke.mindustry.world.Tile;
 import io.anuke.mindustry.world.consumers.*;
 
 public class PowerGraph{
-    private final static Queue<Tile> queue = new Queue<>();
-    private final static Array<Tile> outArray1 = new Array<>();
-    private final static Array<Tile> outArray2 = new Array<>();
-    private final static IntSet closedSet = new IntSet();
+    private final static Queue<Tile> QUEUE = new Queue<>();
+    private final static Array<Tile> OUT_ARRAY_1 = new Array<>();
+    private final static Array<Tile> OUT_ARRAY_2 = new Array<>();
+    private final static IntSet CLOSED_SET = new IntSet();
 
     private final ObjectSet<Tile> producers = new ObjectSet<>();
     private final ObjectSet<Tile> consumers = new ObjectSet<>();
@@ -223,16 +223,16 @@ public class PowerGraph{
     }
 
     public void reflow(Tile tile){
-        queue.clear();
-        queue.addLast(tile);
-        closedSet.clear();
-        while(queue.size > 0){
-            Tile child = queue.removeFirst();
+        QUEUE.clear();
+        QUEUE.addLast(tile);
+        CLOSED_SET.clear();
+        while(QUEUE.size > 0){
+            Tile child = QUEUE.removeFirst();
             add(child);
-            for(Tile next : child.block().getPowerConnections(child, outArray2)){
-                if(!closedSet.contains(next.pos())){
-                    queue.addLast(next);
-                    closedSet.add(next.pos());
+            for(Tile next : child.block().getPowerConnections(child, OUT_ARRAY_2)){
+                if(!CLOSED_SET.contains(next.pos())){
+                    QUEUE.addLast(next);
+                    CLOSED_SET.add(next.pos());
                 }
             }
         }
@@ -248,10 +248,10 @@ public class PowerGraph{
     public void remove(Tile tile){
         removeSingle(tile);
         //begin by clearing the closed set
-        closedSet.clear();
+        CLOSED_SET.clear();
 
         //go through all the connections of this tile
-        for(Tile other : tile.block().getPowerConnections(tile, outArray1)){
+        for(Tile other : tile.block().getPowerConnections(tile, OUT_ARRAY_1)){
             //a graph has already been assigned to this tile from a previous call, skip it
             if(other.entity.power.graph != this) continue;
 
@@ -259,22 +259,22 @@ public class PowerGraph{
             PowerGraph graph = new PowerGraph();
             graph.add(other);
             //add to queue for BFS
-            queue.clear();
-            queue.addLast(other);
-            while(queue.size > 0){
+            QUEUE.clear();
+            QUEUE.addLast(other);
+            while(QUEUE.size > 0){
                 //get child from queue
-                Tile child = queue.removeFirst();
+                Tile child = QUEUE.removeFirst();
                 //remove it from this graph
                 removeSingle(child);
                 //add it to the new branch graph
                 graph.add(child);
                 //go through connections
-                for(Tile next : child.block().getPowerConnections(child, outArray2)){
+                for(Tile next : child.block().getPowerConnections(child, OUT_ARRAY_2)){
                     //make sure it hasn't looped back, and that the new graph being assigned hasn't already been assigned
                     //also skip closed tiles
-                    if(next != tile && next.entity.power.graph != graph && !closedSet.contains(next.pos())){
-                        queue.addLast(next);
-                        closedSet.add(next.pos());
+                    if(next != tile && next.entity.power.graph != graph && !CLOSED_SET.contains(next.pos())){
+                        QUEUE.addLast(next);
+                        CLOSED_SET.add(next.pos());
                     }
                 }
             }

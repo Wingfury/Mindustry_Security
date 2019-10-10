@@ -34,10 +34,10 @@ import static io.anuke.arc.util.Log.*;
 import static io.anuke.mindustry.Vars.*;
 
 public class ServerControl implements ApplicationListener{
-    private static final int roundExtraTime = 12;
+    private static final int ROUND_EXTRA_TIME = 12;
     //in bytes: 512 kb is max
-    private static final int maxLogLength = 1024 * 512;
-    private static final int commandSocketPort = 6859;
+    private static final int MAX_LOG_LENGTH = 1024 * 512;
+    private static final int COMMAND_SOCKET_PORT = 6859;
 
     private final CommandHandler handler = new CommandHandler("");
     private final FileHandle logFolder = Core.settings.getDataDirectory().child("logs/");
@@ -160,7 +160,7 @@ public class ServerControl implements ApplicationListener{
                     ? "[YELLOW]The " + event.winner.name() + " team is victorious![]" : "[SCARLET]Game over![]")
                     + "\nNext selected map:[accent] " + map.name() + "[]"
                     + (map.tags.containsKey("author") && !map.tags.get("author").trim().isEmpty() ? " by[accent] " + map.author() + "[]" : "") + "." +
-                    "\nNew game begins in " + roundExtraTime + "[] seconds.");
+                    "\nNew game begins in " + ROUND_EXTRA_TIME + "[] seconds.");
 
                     info("Selected next map to be {0}.", map.name());
 
@@ -483,7 +483,7 @@ public class ServerControl implements ApplicationListener{
             info("Strict mode is now {0}.", netServer.admins.getStrict() ? "on" : "off");
         });
 
-        handler.register("socketinput", "[on/off]", "Disables or enables a local TCP socket at port "+commandSocketPort+" to recieve commands from other applications", arg -> {
+        handler.register("socketinput", "[on/off]", "Disables or enables a local TCP socket at port "+ COMMAND_SOCKET_PORT +" to recieve commands from other applications", arg -> {
             if(arg.length == 0){
                 info("Socket input is currently &lc{0}.", Core.settings.getBool("socket") ? "on" : "off");
                 return;
@@ -835,7 +835,7 @@ public class ServerControl implements ApplicationListener{
                 }
             };
 
-            Timer.schedule(lastTask, roundExtraTime);
+            Timer.schedule(lastTask, ROUND_EXTRA_TIME);
         }else{
             r.run();
         }
@@ -855,7 +855,7 @@ public class ServerControl implements ApplicationListener{
     }
 
     private void logToFile(String text){
-        if(currentLogFile != null && currentLogFile.length() > maxLogLength){
+        if(currentLogFile != null && currentLogFile.length() > MAX_LOG_LENGTH){
             String date = DateTimeFormatter.ofPattern("MM-dd-yyyy | HH:mm:ss").format(LocalDateTime.now());
             currentLogFile.writeString("[End of log file. Date: " + date + "]\n", true);
             currentLogFile = null;
@@ -863,7 +863,7 @@ public class ServerControl implements ApplicationListener{
 
         if(currentLogFile == null){
             int i = 0;
-            while(logFolder.child("log-" + i + ".txt").length() >= maxLogLength){
+            while(logFolder.child("log-" + i + ".txt").length() >= MAX_LOG_LENGTH){
                 i++;
             }
 
@@ -878,7 +878,7 @@ public class ServerControl implements ApplicationListener{
             socketThread = new Thread(() -> {
                 try{
                     try(ServerSocket socket = new ServerSocket()){
-                        socket.bind(new InetSocketAddress("localhost", commandSocketPort));
+                        socket.bind(new InetSocketAddress("localhost", COMMAND_SOCKET_PORT));
                         while(true){
                             Socket client = socket.accept();
                             info("&lmRecieved command socket connection: &lb{0}", socket.getLocalSocketAddress());

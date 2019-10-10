@@ -171,7 +171,7 @@ public class CoreBlock extends StorageBlock{
         CoreEntity entity = tile.entity();
 
         if(entity.heat > 0.001f){
-            RespawnBlock.drawRespawn(tile, entity.heat, entity.progress, entity.time, entity.spawnPlayer, mech);
+            RespawnBlockUtil.drawRespawn(tile, entity.heat, entity.progress, entity.time, entity.spawnPlayer, mech);
         }
     }
 

@@ -56,7 +56,7 @@ public enum SAchievement{
 
     private final SStat stat;
     private final int statGoal;
-    public static final SAchievement[] all = values();
+    public static final SAchievement[] ALL_ACHIEVEMENTS = values();
 
     /** Creates an achievement that is triggered when this stat reaches a number.*/
     SAchievement(SStat stat, int goal){
@@ -70,8 +70,8 @@ public enum SAchievement{
 
     public void complete(){
         if(!isAchieved()){
-            SVars.stats.stats.setAchievement(name());
-            SVars.stats.stats.storeStats();
+            SVarsUtil.stats.stats.setAchievement(name());
+            SVarsUtil.stats.stats.storeStats();
         }
     }
 
@@ -82,6 +82,6 @@ public enum SAchievement{
     }
 
     public boolean isAchieved(){
-        return SVars.stats.stats.isAchieved(name(), false);
+        return SVarsUtil.stats.stats.isAchieved(name(), false);
     }
 }

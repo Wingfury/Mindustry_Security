@@ -3,7 +3,7 @@ package io.anuke.mindustry;
 import io.anuke.arc.graphics.Color;
 import io.anuke.arc.graphics.g2d.TextureRegion;
 import io.anuke.arc.util.Structs;
-import io.anuke.mindustry.ImagePacker.GenRegion;
+import io.anuke.mindustry.ImagePackerUtil.GenRegion;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,7 +22,7 @@ class Image{
     public final int width, height;
 
     Image(TextureRegion region){
-        this(ImagePacker.buf(region));
+        this(ImagePackerUtil.buf(region));
     }
 
     Image(BufferedImage src){
@@ -97,7 +97,7 @@ class Image{
 
         int ofx = 0, ofy = 0;
 
-        graphics.drawImage(ImagePacker.get(region).image,
+        graphics.drawImage(ImagePackerUtil.get(region).image,
         x, y,
         x + region.getWidth(),
         y + region.getHeight(),

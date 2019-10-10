@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.*;
 
-public class ImagePacker{
+public class ImagePackerUtil {
     static ObjectMap<String, TextureRegion> regionCache = new ObjectMap<>();
     static ObjectMap<TextureRegion, BufferedImage> imageCache = new ObjectMap<>();
 
@@ -143,7 +143,7 @@ public class ImagePacker{
 
         static void validate(TextureRegion region){
             if(((GenRegion)region).invalid){
-                ImagePacker.err("Region does not exist: {0}", ((GenRegion)region).name);
+                ImagePackerUtil.err("Region does not exist: {0}", ((GenRegion)region).name);
             }
         }
     }

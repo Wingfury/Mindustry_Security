@@ -27,8 +27,8 @@ import java.io.*;
 import static io.anuke.mindustry.Vars.*;
 
 public class BuildBlock extends Block{
-    public static final int maxSize = 9;
-    private static final BuildBlock[] buildBlocks = new BuildBlock[maxSize];
+    public static final int MAX_SIZE = 9;
+    private static final BuildBlock[] BUILD_BLOCKS = new BuildBlock[MAX_SIZE];
 
     public BuildBlock(int size){
         super("build" + size);
@@ -39,13 +39,13 @@ public class BuildBlock extends Block{
         consumesTap = true;
         solidifes = true;
 
-        buildBlocks[size - 1] = this;
+        BUILD_BLOCKS[size - 1] = this;
     }
 
     /** Returns a BuildBlock by size. */
     public static BuildBlock get(int size){
-        if(size > maxSize) throw new IllegalArgumentException("No. Don't place BuildBlocks of size greater than " + maxSize);
-        return buildBlocks[size - 1];
+        if(size > MAX_SIZE) throw new IllegalArgumentException("No. Don't place BuildBlocks of size greater than " + MAX_SIZE);
+        return BUILD_BLOCKS[size - 1];
     }
 
     @Remote(called = Loc.server)

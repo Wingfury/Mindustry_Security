@@ -28,7 +28,7 @@ import io.anuke.mindustry.world.meta.*;
 import static io.anuke.mindustry.Vars.tilesize;
 
 public abstract class Turret extends Block{
-    protected static final int targetInterval = 20;
+    protected static final int TARGET_INTERVAL = 20;
 
     protected final int timerTarget = timers++;
 
@@ -151,7 +151,7 @@ public abstract class Turret extends Block{
 
         if(hasAmmo(tile)){
 
-            if(entity.timer.get(timerTarget, targetInterval)){
+            if(entity.timer.get(timerTarget, TARGET_INTERVAL)){
                 findTarget(tile);
             }
 

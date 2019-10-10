@@ -190,7 +190,7 @@ public class Tile implements Position, TargetTrait{
         return floor.id;
     }
 
-    public void setOverlayID(short ore){
+    public void setOverlayID(int ore){
         this.overlay = (Floor)content.block(ore);
     }
 

@@ -4,7 +4,8 @@ import io.anuke.mindustry.Vars;
 import io.anuke.mindustry.type.ContentType;
 
 
-/** Base class for a content type that is loaded in {@link io.anuke.mindustry.core.ContentLoader}. */
+/** Base class for a content type that is loaded in
+ * {@link io.anuke.mindustry.core.ContentLoader}. */
 public abstract class Content{
     public final short id;
 
@@ -19,7 +20,8 @@ public abstract class Content{
      */
     public abstract ContentType getContentType();
 
-    /** Called after all content and modules are created. Do not use to load regions or texture data! */
+    /** Called after all content and modules are created.
+     * Do not use to load regions or texture data! */
     public void init(){
     }
 

@@ -9,10 +9,10 @@ import io.anuke.mindustry.world.*;
 
 import static io.anuke.mindustry.Vars.net;
 
-public class RespawnBlock{
+public class RespawnBlockUtil {
     
     public static void drawRespawn(Tile tile, float heat, float progress, float time, Player player, Mech to){
-        progress = Mathf.clamp(progress);
+        float progressDrawn = Mathf.clamp(progress);
 
         Draw.color(Pal.darkMetal);
         Lines.stroke(2f * heat);
@@ -22,12 +22,12 @@ public class RespawnBlock{
         if(player != null){
             TextureRegion region = to.iconRegion;
 
-            Draw.color(0f, 0f, 0f, 0.4f * progress);
+            Draw.color(0f, 0f, 0f, 0.4f * progressDrawn);
             Draw.rect("circle-shadow", tile.drawx(), tile.drawy(), region.getWidth() / 3f, region.getWidth() / 3f);
             Draw.color();
 
             Shaders.build.region = region;
-            Shaders.build.progress = progress;
+            Shaders.build.progress = progressDrawn;
             Shaders.build.color.set(Pal.accent);
             Shaders.build.time = -time / 10f;
 
@@ -59,7 +59,7 @@ public class RespawnBlock{
 
         Lines.stroke(3f);
         Draw.color(Pal.accent);
-        Lines.line(tile.drawx() - len, tile.drawy() + oy, tile.drawx() - len + len*2 * progress, tile.drawy() + oy, CapStyle.none);
+        Lines.line(tile.drawx() - len, tile.drawy() + oy, tile.drawx() - len + len*2 * progressDrawn, tile.drawy() + oy, CapStyle.none);
         for(int i : Mathf.signs){
             Fill.tri(tile.drawx() + len * i, tile.drawy() + oy - Lines.getStroke()/2f, tile.drawx() + len * i, tile.drawy() + oy + Lines.getStroke()/2f, tile.drawx() + (len + Lines.getStroke() * heat) * i, tile.drawy() + oy);
         }

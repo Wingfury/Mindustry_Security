@@ -16,9 +16,9 @@ import io.anuke.mindustry.world.meta.Attribute;
 import java.io.*;
 
 public class Cultivator extends GenericCrafter{
-    protected static final Color plantColor = Color.valueOf("5541b1");
-    protected static final Color plantColorLight = Color.valueOf("7457ce");
-    protected static final Color bottomColor = Color.valueOf("474747");
+    protected static final Color PLANT_COLOR = Color.valueOf("5541b1");
+    protected static final Color PLANT_COLOR_LIGHT = Color.valueOf("7457ce");
+    protected static final Color BOTTOM_COLOR = Color.valueOf("474747");
 
     protected TextureRegion middleRegion, topRegion;
     protected RandomXS128 random = new RandomXS128(0);
@@ -66,11 +66,11 @@ public class Cultivator extends GenericCrafter{
 
         Draw.rect(region, tile.drawx(), tile.drawy());
 
-        Draw.color(plantColor);
+        Draw.color(PLANT_COLOR);
         Draw.alpha(entity.warmup);
         Draw.rect(middleRegion, tile.drawx(), tile.drawy());
 
-        Draw.color(bottomColor, plantColorLight, entity.warmup);
+        Draw.color(BOTTOM_COLOR, PLANT_COLOR_LIGHT, entity.warmup);
 
         random.setSeed(tile.pos());
         for(int i = 0; i < 12; i++){
