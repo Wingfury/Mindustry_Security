@@ -16,6 +16,8 @@ public abstract class Consume{
     /**
      * Apply a filter to items accepted.
      * This should set all item IDs that are present in the filter to true.
+     * This really shouldnt be empty and should be implemented in a subclass, However this is an
+     * architecture design that would require more refactor to remove the issue
      */
     public void applyItemFilter(boolean[] filter){
 
@@ -24,6 +26,8 @@ public abstract class Consume{
     /**
      * Apply a filter to liquids accepted.
      * This should set all liquid IDs that are present in the filter to true.
+     * This really shouldnt be empty and should be implemented in a subclass, However this is an
+     * architecture design that would require more refactor to remove the issue
      */
     public void applyLiquidFilter(boolean[] filter){
 
@@ -60,7 +64,10 @@ public abstract class Consume{
 
     public abstract void build(Tile tile, Table table);
 
-    /** Called when a consumption is triggered manually. */
+    /** Called when a consumption is triggered manually.
+     * This really shouldnt be empty and should be implemented in a subclass, However this is an
+     * architecture design that would require more refactor to remove the issue
+     * */
     public void trigger(TileEntity entity){
 
     }

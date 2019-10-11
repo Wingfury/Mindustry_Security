@@ -155,12 +155,13 @@ public class PowerNode extends PowerBlock{
     @Override
     public boolean onConfigureTileTapped(Tile tile, Tile other){
         TileEntity entity = tile.entity();
-        other = other.link();
+        //reassigning other is confusing using a local variable is more clear
+        Tile otherLink = other.link();
 
-        Tile result = other;
+        Tile result = otherLink;
 
-        if(linkValid(tile, other)){
-            if(linked(tile, other)){
+        if(linkValid(tile, otherLink)){
+            if(linked(tile, otherLink)){
                 Call.unlinkPowerNodes(null, tile, result);
             }else if(entity.power.links.size < maxNodes){
                 Call.linkPowerNodes(null, tile, result);

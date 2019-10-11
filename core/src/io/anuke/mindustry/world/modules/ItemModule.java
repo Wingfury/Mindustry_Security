@@ -99,10 +99,11 @@ public class ItemModule extends BlockModule{
     }
 
     public void remove(Item item, int amount){
-        amount = Math.min(amount, items[item.id]);
+        //the reassignment of Amount is confusing and can cause errors if editing later. Changed for clarity
+        int removalAmount = Math.min(amount, items[item.id]);
 
-        items[item.id] -= amount;
-        total -= amount;
+        items[item.id] -= removalAmount;
+        total -= removalAmount;
     }
 
     public void remove(ItemStack stack){

@@ -15,7 +15,10 @@ public class BundleLauncher{
     public static void main(String[] args) throws Exception{
         File file = new File("bundle.properties");
         OrderedMap<String, String> base = new OrderedMap<>();
-        PropertiesUtils.load(base, new InputStreamReader(new FileInputStream(file)));
+        //Instantiating FileInputStream can cause garbage collection to run which causes performance issues
+        //Changed to buffered reader which shouldnt change anything but will remove the problem of garbage collection pauses
+        PropertiesUtils.load(base, Files.newBufferedReader(Paths.get(file.getName())));
+        ////PropertiesUtils.load(base, new InputStreamReader(new FileInputStream(file)));
         Array<String> removals = new Array<>();
 
         Files.walk(Paths.get("")).forEach(child -> {
