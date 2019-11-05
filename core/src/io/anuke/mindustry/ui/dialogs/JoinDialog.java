@@ -42,13 +42,19 @@ public class JoinDialog extends FloatingDialog{
 
         add = new FloatingDialog("$joingame.title");
         add.cont.add("$joingame.ip").padRight(5f).left();
+        add.cont.add("Password").padRight(5f).left();
 
         TextField field = add.cont.addField(Core.settings.getString("ip"), text -> {
             Core.settings.put("ip", text);
             Core.settings.save();
         }).size(320f, 54f).get();
+        TextField pass = add.cont.addField(Core.settings.getString("pass"), text -> {
+            Core.settings.put("passInput", text);
+            Core.settings.save();
+        }).size(320f, 54f).get();
 
         platform.addDialog(field, 100);
+        platform.addDialog(pass, 100);
 
         add.cont.row();
         add.buttons.defaults().size(140f, 60f).pad(4f);

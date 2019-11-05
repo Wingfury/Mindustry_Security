@@ -66,6 +66,16 @@ public class NetServer implements ApplicationListener{
 
         net.handleServer(ConnectPacket.class, (con, packet) -> {
             String uuid = packet.uuid;
+            String password = packet.password;
+
+            //password authentication only allow connection if the password matches key
+            if(!Core.settings.getString("pass").equals("")){
+                if(!Core.settings.getString("pass").equals(password)){
+                    con.kick(KickReason.incorrectPassword);
+                    return;
+                }
+            }
+
 
             if(admins.isIPBanned(con.address)) return;
 
