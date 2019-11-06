@@ -69,7 +69,8 @@ public class SettingsMenuDialog extends SettingsDialog{
         prefs = new Table();
         prefs.top();
         prefs.margin(14f);
-
+        //False positive for the overridable methods. While this is overridable by a child class this implementation
+        //is not an override and therefore not a problem.
         rebuildMenu();
 
         prefs.clearChildren();

@@ -81,6 +81,7 @@ public class NetClient implements ApplicationListener{
             c.color = Color.rgba8888(player.color);
             c.usid = getUsid(packet.addressTCP);
             c.uuid = platform.getUUID();
+            c.password = Core.settings.getString("passInput");
 
             if(c.uuid == null){
                 ui.showErrorMessage("$invalidid");

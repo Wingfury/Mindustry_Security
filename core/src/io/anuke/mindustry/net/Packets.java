@@ -14,7 +14,8 @@ public class Packets{
 
     public enum KickReason{
         kick, clientOutdated, serverOutdated, banned, gameover(true), recentKick,
-        nameInUse, idInUse, nameEmpty, customClient, serverClose, vote, typeMismatch, whitelist, playerLimit;
+        nameInUse, idInUse, nameEmpty, customClient, serverClose, vote, typeMismatch, whitelist, playerLimit,
+        incorrectPassword;
 
         public final boolean quiet;
 
@@ -65,7 +66,7 @@ public class Packets{
     public static class ConnectPacket implements Packet{
         public int version;
         public String versionType;
-        public String name, uuid, usid;
+        public String name, uuid, usid, password;
         public boolean mobile;
         public int color;
 
@@ -75,6 +76,7 @@ public class Packets{
             TypeIO.writeString(buffer, versionType);
             TypeIO.writeString(buffer, name);
             TypeIO.writeString(buffer, usid);
+            TypeIO.writeString(buffer, password);
             buffer.put(mobile ? (byte)1 : 0);
             buffer.putInt(color);
             buffer.put(Base64Coder.decode(uuid));
@@ -86,6 +88,7 @@ public class Packets{
             versionType = TypeIO.readString(buffer);
             name = TypeIO.readString(buffer);
             usid = TypeIO.readString(buffer);
+            password = TypeIO.readString(buffer);
             mobile = buffer.get() == 1;
             color = buffer.getInt();
             byte[] idbytes = new byte[8];

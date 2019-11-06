@@ -48,6 +48,7 @@ public class Version{
                 build = Strings.canParseInt(map.get("build")) ? Integer.parseInt(map.get("build")) : -1;
             }
         }catch(IOException e){
+            //there is no recovering from this exception. Therefore we should throw runtime exception here.
             throw new RuntimeException(e);
         }
     }
