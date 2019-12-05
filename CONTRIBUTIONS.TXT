@@ -11,3 +11,9 @@ Contributions included everything in each weeks feedback.
 Andrew
 
 Brian
+Contributions were well documented in the surveys each week as well as the following things:
+ - Did kritika refactoring
+ - evaluated kritika response to various design issues including size vs performance as well as logging
+ - wrote up large sections of paper involving kritika refactoring as well as issues noted about logging
+ - developed password security to the application
+ - refactored the server control class to be closer to a single responsibility
