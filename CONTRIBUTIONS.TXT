@@ -1,0 +1,13 @@
+Nicole
+Contributions included everything in each weeks feedback.
+  * Obtained tool licenses (this seriously sucked and took some time).
+  * Installed and ran/managed tools in IntelliJ and directly in Github to generate tool results.
+  * Did research for the tools and other resources used.
+  * Analyzed all of the PVS-Studio Results
+  * Analyzed some of the Kritika Results (mostly to weed them out and help decide which ones we didn't want to focus on).
+  * Wrote a large portion of the first few drafts of the paper.
+  * Worked on the final poster with Brian
+
+Andrew
+
+Brian
